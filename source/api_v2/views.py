@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from webapp.models import Article, Comment
+from webapp.models import Article
 from api_v2.serializers import ArticleSerializer
 
 
@@ -35,3 +35,8 @@ class ArticleView(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=400)
+
+    def delete(self, request, *args, **kwargs):
+        if kwargs.get('pk'):
+            get_object_or_404(Article, pk=kwargs.get('pk')).delete()
+            return Response({'deleted_article_pk': kwargs.get('pk')})
