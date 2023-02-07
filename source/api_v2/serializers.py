@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from webapp.models import Article
+from webapp.models import Article, Comment
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -7,3 +7,10 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = ['id', 'title', 'content', 'author', 'tags', 'created_at', 'updated_at']
         read_only_fields = ['id', 'author', 'tags', 'created_at', 'updated_at']
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id', 'text', 'article', 'author', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'author', 'created_at', 'updated_at']
